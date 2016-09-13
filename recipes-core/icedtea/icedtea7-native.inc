@@ -8,7 +8,7 @@ DEPENDS = "virtual/javac-native virtual/java-native classpath-native \
            giflib-native jpeg-native libpng-native \
            glib-2.0-native freetype-native zlib-native \
            fontconfig-native zip-native \
-	   unzip-native \
+	   unzip-native make-native util-linux-native\
           "
 
 PACKAGECONFIG ??= ""
@@ -41,6 +41,7 @@ SRC_URI = " \
   ${OPENJDK_PATCHES} \
   file://allow-headless-build.patch;striplevel=0 \
   file://jaxws_fix_NullPointerException.patch;apply=no \
+  file://timezoneszip.patch \
   "
 
 S = "${WORKDIR}/${ICEDTEA}"
@@ -107,6 +108,7 @@ do_configure_prepend() {
 	# SYSTEM_GCJ_DIR afterwards.
 	mkdir -p ${WORKDIR}/fake-jdk/jre/lib/
 	ln -sf ${STAGING_DATADIR_NATIVE}/classpath/glibj.zip ${WORKDIR}/fake-jdk/jre/lib/rt.jar
+	ln -sf ${STAGING_DATADIR_NATIVE}/classpath/tools.zip ${WORKDIR}/fake-jdk/jre/lib/tools.jar
 
         mkdir -p ${WORKDIR}/fake-jdk/bin
         ln -sf ${STAGING_BINDIR_NATIVE}/java  ${WORKDIR}/fake-jdk/bin/java
