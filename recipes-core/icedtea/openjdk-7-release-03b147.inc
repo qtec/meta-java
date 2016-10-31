@@ -7,6 +7,10 @@ FILESPATH =. "${FILE_DIRNAME}/openjdk-7-03b147:"
 # Force arm mode for now
 ARM_INSTRUCTION_SET_armv4t = "ARM"
 
+# readdir_r was deprecated in glibc-2.24. Ignore the error for now
+# NOTE: When updating the recipe, please check if this is still needed
+CFLAGS_append = " -Wno-error=deprecated-declarations"
+
 ICEDTEA_URI = "http://icedtea.wildebeest.org/download/source/${ICEDTEA}.tar.gz;name=iced"
 
 ICEDTEA_PREFIX = "icedtea7-forest-2.1"
